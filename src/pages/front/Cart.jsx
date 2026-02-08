@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
-//  import { useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { Link } from 'react-router-dom';
 // API
 import {
@@ -13,7 +13,7 @@ import {
 import LoadingSpinner from '../../components/LoadingSpinner';
 
 function Cart() {
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
   const [cartItem, setCartItem] = useState([]);
   // 金額
   const [total, setTotal] = useState(0);
@@ -80,6 +80,11 @@ function Cart() {
     }
   };
 
+  // 回到產品頁
+  const handleProductPage = () => {
+    navigate('/product');
+  };
+
   useEffect(() => {
     const init = async () => {
       setIsLoading(true);
@@ -99,8 +104,17 @@ function Cart() {
           </div>
         ) : cartItem.length === 0 ? (
           // 先判斷購物車裡有沒有東西
-          <div className='text-error text-start fs-4 my-5'>
-            <i className='bi bi-cart-x me-2'></i>購物車目前沒有商品
+          <div className='text-error text-center fs-4 my-5'>
+            <p>
+              <i className='bi bi-cart-x me-2'></i>購物車目前沒有商品
+            </p>
+            <button
+              type='button'
+              className='btn btn-primary-400 text-primary-100'
+              onClick={handleProductPage}
+            >
+              <i className='bi bi-arrow-bar-left me-1'></i>去新增商品
+            </button>
           </div>
         ) : (
           <div className='row'>
